@@ -1,0 +1,40 @@
+﻿@model Asp.net_MVC_TP_7.Models.Article
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2 style="text-align:center">Supprission</h2>
+
+<p style="text-align:center">Vous ete sur de vous vouloir faire la supprission?</h3>
+<div>
+    <h4>Article</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nom_Art)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nom_Art)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PU)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PU)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Supprimer" class="btn btn-default" /> |
+            @Html.ActionLink("Retour a la liste", "Index")
+        </div>
+    }
+</div>

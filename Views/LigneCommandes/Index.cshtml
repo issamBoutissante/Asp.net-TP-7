@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Asp.net_MVC_TP_7.Models.LigneCommande>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 style="text-align:center">Liste Ligne Commandes</h2>
+
+<p>
+    @Html.ActionLink("Ajout", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Qtt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Commande.Num_Cmd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Article.Nom_Art)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Qtt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Commande.Num_Cmd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Article.Nom_Art)
+        </td>
+        <td>
+            @Html.ActionLink("Modification", "Edit", new { numArt=item.Num_Art,numCmd=item.Num_Cmd}) |
+            @Html.ActionLink("Details", "Details", new {  numArt = item.Num_Art, numCmd = item.Num_Cmd }) |
+            @Html.ActionLink("Supprission", "Delete", new {  numArt = item.Num_Art, numCmd = item.Num_Cmd })
+        </td>
+    </tr>
+}
+
+</table>

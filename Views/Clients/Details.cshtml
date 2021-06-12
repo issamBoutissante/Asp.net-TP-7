@@ -1,0 +1,26 @@
+﻿@model Asp.net_MVC_TP_7.Models.Client
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Client</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nom_Clt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nom_Clt)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Modification", "Edit", new { id = Model.Num_Clt }) |
+    @Html.ActionLink("Retour a la liste", "Index")
+</p>

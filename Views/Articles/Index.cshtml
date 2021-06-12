@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Asp.net_MVC_TP_7.Models.Article>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 style="text-align:center">Liste Articles</h2>
+
+<p>
+    @Html.ActionLink("Ajout", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nom_Art)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PU)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nom_Art)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PU)
+        </td>
+        <td>
+            @Html.ActionLink("Modification", "Edit", new { id=item.Num_Art }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Num_Art }) |
+            @Html.ActionLink("Supprission", "Delete", new { id=item.Num_Art })
+        </td>
+    </tr>
+}
+
+</table>

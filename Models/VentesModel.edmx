@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="VentesModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="VentesModelStoreContainer">
+    <EntitySet Name="Articles" EntityType="VentesModel.Store.Articles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Clients" EntityType="VentesModel.Store.Clients" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Commandes" EntityType="VentesModel.Store.Commandes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LigneCommandes" EntityType="VentesModel.Store.LigneCommandes" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ClientCommande" Association="VentesModel.Store.ClientCommande">
+      <End Role="Client" EntitySet="Clients" />
+      <End Role="Commande" EntitySet="Commandes" />
+    </AssociationSet>
+    <AssociationSet Name="CommandeLigneCommande" Association="VentesModel.Store.CommandeLigneCommande">
+      <End Role="Commande" EntitySet="Commandes" />
+      <End Role="LigneCommande" EntitySet="LigneCommandes" />
+    </AssociationSet>
+    <AssociationSet Name="ArticleLigneCommande" Association="VentesModel.Store.ArticleLigneCommande">
+      <End Role="Article" EntitySet="Articles" />
+      <End Role="LigneCommande" EntitySet="LigneCommandes" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Articles">
+    <Key>
+      <PropertyRef Name="Num_Art" />
+    </Key>
+    <Property Name="Num_Art" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom_Art" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PU" Type="decimal" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Clients">
+    <Key>
+      <PropertyRef Name="Num_Clt" />
+    </Key>
+    <Property Name="Num_Clt" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom_Clt" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Commandes">
+    <Key>
+      <PropertyRef Name="Num_Cmd" />
+    </Key>
+    <Property Name="Num_Cmd" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date_Cmd" Type="datetime" Nullable="false" />
+    <Property Name="Num_Clt" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LigneCommandes">
+    <Key>
+      <PropertyRef Name="Num_Cmd" />
+      <PropertyRef Name="Num_Art" />
+    </Key>
+    <Property Name="Qtt" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Num_Cmd" Type="int" Nullable="false" />
+    <Property Name="Num_Art" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ClientCommande">
+    <End Role="Client" Type="VentesModel.Store.Clients" Multiplicity="1" />
+    <End Role="Commande" Type="VentesModel.Store.Commandes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="Num_Clt" />
+      </Principal>
+      <Dependent Role="Commande">
+        <PropertyRef Name="Num_Clt" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CommandeLigneCommande">
+    <End Role="Commande" Type="VentesModel.Store.Commandes" Multiplicity="1" />
+    <End Role="LigneCommande" Type="VentesModel.Store.LigneCommandes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Commande">
+        <PropertyRef Name="Num_Cmd" />
+      </Principal>
+      <Dependent Role="LigneCommande">
+        <PropertyRef Name="Num_Cmd" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ArticleLigneCommande">
+    <End Role="Article" Type="VentesModel.Store.Articles" Multiplicity="1" />
+    <End Role="LigneCommande" Type="VentesModel.Store.LigneCommandes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Article">
+        <PropertyRef Name="Num_Art" />
+      </Principal>
+      <Dependent Role="LigneCommande">
+        <PropertyRef Name="Num_Art" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="VentesModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="VentesModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Articles" EntityType="VentesModel.Article" />
+          <EntitySet Name="Clients" EntityType="VentesModel.Client" />
+          <EntitySet Name="Commandes" EntityType="VentesModel.Commande" />
+          <AssociationSet Name="ClientCommande" Association="VentesModel.ClientCommande">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Commande" EntitySet="Commandes" />
+          </AssociationSet>
+          <EntitySet Name="LigneCommandes" EntityType="VentesModel.LigneCommande" />
+          <AssociationSet Name="CommandeLigneCommande" Association="VentesModel.CommandeLigneCommande">
+            <End EntitySet="Commandes" Role="Commande" />
+            <End EntitySet="LigneCommandes" Role="LigneCommande" />
+          </AssociationSet>
+          <AssociationSet Name="ArticleLigneCommande" Association="VentesModel.ArticleLigneCommande">
+            <End Role="Article" EntitySet="Articles" />
+            <End Role="LigneCommande" EntitySet="LigneCommandes" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Article">
+          <Key>
+            <PropertyRef Name="Num_Art" />
+          </Key>
+          <Property Name="Num_Art" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom_Art" Type="String" Nullable="false" />
+          <Property Name="PU" Type="Decimal" Nullable="false" />
+          <NavigationProperty Name="LigneCommandes" Relationship="VentesModel.ArticleLigneCommande" FromRole="Article" ToRole="LigneCommande" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="Num_Clt" />
+          </Key>
+          <Property Name="Num_Clt" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom_Clt" Type="String" Nullable="false" />
+          <NavigationProperty Name="Commandes" Relationship="VentesModel.ClientCommande" FromRole="Client" ToRole="Commande" />
+        </EntityType>
+        <EntityType Name="Commande">
+          <Key>
+            <PropertyRef Name="Num_Cmd" />
+          </Key>
+          <Property Name="Num_Cmd" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date_Cmd" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="VentesModel.ClientCommande" FromRole="Commande" ToRole="Client" />
+          <Property Name="Num_Clt" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="LigneCommandes" Relationship="VentesModel.CommandeLigneCommande" FromRole="Commande" ToRole="LigneCommande" />
+        </EntityType>
+        <Association Name="ClientCommande">
+          <End Type="VentesModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="VentesModel.Commande" Role="Commande" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Num_Clt" />
+            </Principal>
+            <Dependent Role="Commande">
+              <PropertyRef Name="Num_Clt" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LigneCommande">
+          <Key>
+            <PropertyRef Name="Num_Cmd" />
+            <PropertyRef Name="Num_Art" />
+          </Key>
+          <Property Name="Qtt" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Commande" Relationship="VentesModel.CommandeLigneCommande" FromRole="LigneCommande" ToRole="Commande" />
+          <Property Name="Num_Cmd" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Article" Relationship="VentesModel.ArticleLigneCommande" FromRole="LigneCommande" ToRole="Article" />
+          <Property Name="Num_Art" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="CommandeLigneCommande">
+          <End Type="VentesModel.Commande" Multiplicity="1" Role="Commande" />
+          <End Type="VentesModel.LigneCommande" Multiplicity="*" Role="LigneCommande" />
+          <ReferentialConstraint>
+            <Principal Role="Commande">
+              <PropertyRef Name="Num_Cmd" />
+            </Principal>
+            <Dependent Role="LigneCommande">
+              <PropertyRef Name="Num_Cmd" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ArticleLigneCommande">
+          <End Type="VentesModel.Article" Role="Article" Multiplicity="1" />
+          <End Type="VentesModel.LigneCommande" Role="LigneCommande" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="Num_Art" />
+            </Principal>
+            <Dependent Role="LigneCommande">
+              <PropertyRef Name="Num_Art" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="VentesModelStoreContainer" CdmEntityContainer="VentesModelContainer">
+    <EntitySetMapping Name="Articles">
+      <EntityTypeMapping TypeName="IsTypeOf(VentesModel.Article)">
+        <MappingFragment StoreEntitySet="Articles">
+          <ScalarProperty Name="Num_Art" ColumnName="Num_Art" />
+          <ScalarProperty Name="Nom_Art" ColumnName="Nom_Art" />
+          <ScalarProperty Name="PU" ColumnName="PU" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clients">
+      <EntityTypeMapping TypeName="IsTypeOf(VentesModel.Client)">
+        <MappingFragment StoreEntitySet="Clients">
+          <ScalarProperty Name="Num_Clt" ColumnName="Num_Clt" />
+          <ScalarProperty Name="Nom_Clt" ColumnName="Nom_Clt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Commandes">
+      <EntityTypeMapping TypeName="IsTypeOf(VentesModel.Commande)">
+        <MappingFragment StoreEntitySet="Commandes">
+          <ScalarProperty Name="Num_Cmd" ColumnName="Num_Cmd" />
+          <ScalarProperty Name="Date_Cmd" ColumnName="Date_Cmd" />
+          <ScalarProperty Name="Num_Clt" ColumnName="Num_Clt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LigneCommandes">
+      <EntityTypeMapping TypeName="IsTypeOf(VentesModel.LigneCommande)">
+        <MappingFragment StoreEntitySet="LigneCommandes">
+          <ScalarProperty Name="Num_Cmd" ColumnName="Num_Cmd" />
+          <ScalarProperty Name="Num_Art" ColumnName="Num_Art" />
+          <ScalarProperty Name="Qtt" ColumnName="Qtt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
